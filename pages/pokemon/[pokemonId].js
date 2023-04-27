@@ -4,17 +4,15 @@ import Image from 'next/image'
 
 export const getStaticPaths = async () => {
   const maxPokemons = 251
-  const api = `https://pokeapi.co/api/v2/pokemon/`
+  const api = `https://pokeapi.co/api/v2/pokemon`
 
   const res = await fetch(`${api}/?limit=${maxPokemons}`)
 
   const data = await res.json()
 
-  const paths = data.results.map((_, index) => {
-    return {
-      params: { pokemonId: (index +1 ).toString() },
-    }
-  })
+  const paths = data.results.map((pokemon, index) => ({
+    params: { pokemonId: ( 1 + index).toString() },
+  }))
 
   return {
     paths,
